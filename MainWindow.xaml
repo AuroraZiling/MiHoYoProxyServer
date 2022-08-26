@@ -1,0 +1,18 @@
+﻿<Window x:Class="GenshinProxyServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenshinProxyServer"
+        mc:Ignorable="d"
+        Title="Genshin Impact - Proxy Server" Height="440" Width="500" Closing="Window_Closing" ResizeMode="NoResize">
+    <Grid>
+        <Button x:Name="stopBtn" Content="停止" Margin="440,10,10,0" Height="25" VerticalAlignment="Top" Click="stopBtn_Click"/>
+        <Button x:Name="startBtn" Content="开始" Margin="385,10,65,0" Height="25" VerticalAlignment="Top" Click="startBtn_Click"/>
+        <Label x:Name="portLabel" Content="端口" Margin="10,10,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34"/>
+        <TextBox x:Name="portTextBox" Margin="44,14,336,0" TextWrapping="Wrap" Height="18" VerticalAlignment="Top" Text="8088"/>
+        <TextBox x:Name="stsTextbox" TextWrapping="Wrap" Text="状态栏" Margin="10,40,10,0" Height="117" VerticalAlignment="Top" IsReadOnly="True"/>
+        <TextBox x:Name="urlTextBox" TextWrapping="Wrap" Text="输出结果" Margin="10,162,10,10" IsReadOnly="True"/>
+
+    </Grid>
+</Window>
