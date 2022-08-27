@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("GenshinProxyServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GenshinProxyServer")]
-[assembly: AssemblyCopyright("Copyright © HP 2022")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows;
 using Titanium.Web.Proxy;
@@ -17,9 +18,12 @@ namespace GenshinProxyServer
         private ProxyServer proxyServer = new ProxyServer();
         public bool interactMode = false;
         public string statusLog = "", urlLog = "";
+        public int port = 0;
         public MainWindow()
         {
             InitializeComponent();
+
+            stopBtn.IsEnabled = false;
 
             if (File.Exists("python_interact"))
             {
@@ -93,6 +97,22 @@ namespace GenshinProxyServer
 
         }
 
+        public static bool CheckPortUsed(int port)
+        {
+            IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+
+            foreach (IPEndPoint endPoint in ipEndPoints)
+            {
+                if (endPoint.Port == port)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         private void startProxyServer()
         {
             Dispatcher.BeginInvoke(
@@ -106,21 +126,6 @@ namespace GenshinProxyServer
                 )
             );
             proxyServer.BeforeRequest += OnRequest;
-            int port = 0;
-            try
-            {
-                port = int.Parse(portTextBox.Text);
-                if (port < 0 || port > 65535)
-                {
-                    MessageBox.Show("端口范围错误");
-                    return;
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("端口输入错误");
-                return;
-            }
             var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, port, true) { };
             LogUpdate("status", "代理服务器已启动");
             proxyServer.AddEndPoint(explicitEndPoint);
@@ -167,6 +172,25 @@ namespace GenshinProxyServer
 
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                port = int.Parse(portTextBox.Text);
+                if (port < 0 || port > 65535)
+                {
+                    MessageBox.Show("端口范围错误");
+                    return;
+                }
+                if (CheckPortUsed(port))
+                {
+                    MessageBox.Show("端口已被占用");
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("端口输入错误");
+                return;
+            }
             Dispatcher.BeginInvoke(
                 new Action(
                     delegate {
