@@ -25,14 +25,14 @@ namespace GenshinProxyServer
 
             stopBtn.IsEnabled = false;
 
-            if (File.Exists("python_interact"))
+            if (File.Exists("interact"))
             {
                 interactMode = true;
             }
 
             if (interactMode)
             {
-                LogUpdate("status", "已启用Python扩展模式");
+                LogUpdate("status", "已启用扩展模式");
                 Dispatcher.BeginInvoke(
                     new Action(
                         delegate {
